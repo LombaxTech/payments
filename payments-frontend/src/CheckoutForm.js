@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
+import { useStripe, useElements, CardElement, CardNumberElement, CardExpiryElement, CardCvcElement } from '@stripe/react-stripe-js';
 
 import CardSection from './CardSection';
 
-export default function CheckoutForm() {
+const CheckoutForm = () => {
+
+    const [name, setName] = useState('Eren');
+
     const stripe = useStripe();
     const elements = useElements();
 
@@ -26,16 +29,18 @@ export default function CheckoutForm() {
             payment_method: {
                 card: elements.getElement(CardElement),
                 billing_details: {
-                    name: 'Jenny Rosen',
+                    name: name,
                 },
             }
         });
 
         if (result.error) {
             console.log(result.error.message);
+            console.log(result);
         } else {
             if (result.paymentIntent.status === 'succeeded') {
                 console.log('success')
+                console.log(result);
             }
         }
 
@@ -45,10 +50,13 @@ export default function CheckoutForm() {
         <div>
             <form onSubmit={handleSubmit}>
                 <CardSection />
+                {/* <CardNumberElement />
+                <CardExpiryElement />
+                <CardCvcElement /> */}
                 <button disabled={!stripe}>Confirm order</button>
             </form>
-            {/* <h1>Client secret: {clientSecret}</h1> */}
-            {/* {console.log(typeof clientSecret)} */}
         </div>
     );
 }
+
+export default CheckoutForm;

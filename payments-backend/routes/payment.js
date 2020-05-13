@@ -6,6 +6,7 @@ router.get('/paymentIntent', async (req, res) => {
     const paymentIntent = await stripe.paymentIntents.create({
         amount: 1099,
         currency: 'gbp',
+        receipt_email: 'rakibkhan@live.co.uk',
         metadata: { integration_check: 'accept_a_payment' }
     })
 

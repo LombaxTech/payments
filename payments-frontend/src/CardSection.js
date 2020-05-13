@@ -1,5 +1,5 @@
 import React from 'react';
-import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
+import { CardElement } from '@stripe/react-stripe-js';
 import './CardSectionStyles.css'
 
 const CARD_ELEMENT_OPTIONS = {
