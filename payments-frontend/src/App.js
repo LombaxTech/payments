@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 // import 'bootstrap/dist/css/bootstrap.min.css';
+import Test from './Test';
 
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
@@ -16,6 +17,7 @@ const App = () => {
       <Elements stripe={stripePromise}>
         <CheckoutForm />
       </Elements>
+      {/* <Test /> */}
     </div>
   )
 }

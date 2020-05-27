@@ -6,6 +6,7 @@ import CardSection from './CardSection';
 const CheckoutForm = () => {
 
     const [name, setName] = useState('Eren');
+    const [loading, setLoading] = useState(false);
 
     const stripe = useStripe();
     const elements = useElements();
@@ -22,6 +23,7 @@ const CheckoutForm = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setLoading(true);
         if (!stripe || !elements) {
             return;
         }
@@ -37,10 +39,12 @@ const CheckoutForm = () => {
         if (result.error) {
             console.log(result.error.message);
             console.log(result);
+            setLoading(false);
         } else {
             if (result.paymentIntent.status === 'succeeded') {
                 console.log('success')
                 console.log(result);
+                setLoading(false)
             }
         }
 
@@ -55,6 +59,9 @@ const CheckoutForm = () => {
                 <CardCvcElement /> */}
                 <button disabled={!stripe}>Confirm order</button>
             </form>
+            {loading && (
+                <h1>Processing...</h1>
+            )}
         </div>
     );
 }
